@@ -1,0 +1,36 @@
+---
+title: "Visualization 1"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#import data
+```{r code-import, include=FALSE}
+library(readxl)
+library(tidyverse)
+Race_SCHOOL_ONLY <- read_excel("~/Desktop/Race SCHOOL ONLY.xlsx")
+Data_School_Info <- read_excel("~/Desktop/Data + School Info.xlsx")
+data_per_student <- read_excel("~/Desktop/data per student.xlsx")
+race <- read_excel("~/Desktop/race.xlsx")
+```
+
+#enrollment plot
+
+```{r enrollment-plot}
+ggplot(data_per_student, aes(x = school)) +
+    geom_bar(fill="powder blue", color="white")+
+    coord_flip()+
+  labs(title = "Enrollment per School" , x = "School", y = "Enrollment")
+```
+
+#school zone vs. school racial breakdown plot
+```{r demographic-plot}
+ggplot(race, aes(factor(place), number, fill = sorz)) + 
+  geom_bar(stat="identity", position = "dodge") + 
+  coord_flip() +
+  labs(title = "Racial Composition of Schools vs. School Zones" , x = "School", y = "Percentage of Students of Color", fill=" ")
+```
