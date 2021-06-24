@@ -1,0 +1,22 @@
+#Interactive Map
+library(tidyverse)
+library(leaflet)
+library(geojsonio)
+library(htmlwidgets)
+library(htmltools)
+
+#Insert .geojson file
+durham <- geojsonio::geojson_read("~/Downloads/City_Council_Wards.geojson", what = "sp")
+
+durhammap <- leaflet(durham) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data=durham,
+              col = 'dodgerblue',
+              stroke = FALSE,
+              fillOpacity = 0.3,
+              smoothFactor = 0.5) %>%
+#Add Coordinates
+  addCircleMarkers(lng=-78.89656493116006, lat=35.99505160519228, popup = "Insert Info")
+
+#Print Map
+durhammap
