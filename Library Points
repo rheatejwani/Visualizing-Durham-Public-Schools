@@ -1,3 +1,13 @@
+#Interactive Map
+library(tidyverse)
+library(leaflet)
+library(geojsonio)
+library(htmlwidgets)
+library(htmltools)
+
+#Insert .geojson file
+durham <- geojsonio::geojson_read("~/Downloads/City_Council_Wards.geojson", what = "sp")
+
 durhammap <- leaflet(durham) %>%
   addProviderTiles("CartoDB.Positron") %>%
   addPolygons(data=durham,
