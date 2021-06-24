@@ -1,0 +1,36 @@
+durhammap <- leaflet(durham) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data=durham,
+              col = 'dodgerblue',
+              stroke = FALSE,
+              fillOpacity = 0.3,
+              smoothFactor = 0.5) %>%
+  addMarkers(
+    lng=-78.906145498632, lat=35.978199737836,
+    popup = "C C Spaulding Elementary") %>%
+  addCircleMarkers(
+    lng=-78.89656493116006, lat=35.99505160519228,
+    popup = "Main Library, 300 N. Roxboro St. Durham, NC 27701") %>%
+  addCircleMarkers(
+    lng=-78.80949397349004, lat=35.97861363747139,
+    popup = "East Regional Library") %>%
+  addCircleMarkers(
+    lng=-78.91441788698195, lat=36.0876012373018,
+    popup = "North Regional Library") %>%
+  addCircleMarkers(
+    lng=-78.88821184650294, lat=35.90206523891032,
+    popup = "South Regional Library") %>%
+  addCircleMarkers(
+    lng=-78.95434813116088, lat=35.95929726026407,
+    popup = "Southwest Regional Library") %>%
+  addCircleMarkers(
+    lng=-78.898577629314, lat=35.98265947909304,
+    popup = "Standford L. Warren Regional Library") %>%
+  addCircleMarkers(
+    lng=-78.87182058882946, lat=36.037606761181,
+    popup = "Bragtown Library Family Literacy Center") %>%
+  addCircleMarkers(
+    lng=-78.89855191340362, lat=35.974380893127254,
+    popup = "James E. Shepard Memorial Library")
+
+durhammap
