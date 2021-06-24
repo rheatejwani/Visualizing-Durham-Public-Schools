@@ -16,7 +16,12 @@ Race_SCHOOL_ONLY <- read_excel("~/Desktop/Race SCHOOL ONLY.xlsx")
 Data_School_Info <- read_excel("~/Desktop/Data + School Info.xlsx")
 data_per_student <- read_excel("~/Desktop/data per student.xlsx")
 race <- read_excel("~/Desktop/race.xlsx")
+race_diff <- read_excel("~/Desktop/race diff.xlsx")
+poc_per_school <- read_excel("~/Desktop/poc per school.xlsx")
+funding <- read_excel("~/Desktop/funding.xlsx")
+all_race <- read_excel("~/Desktop/all race.xlsx")
 ```
+
 
 #enrollment plot
 
@@ -24,6 +29,7 @@ race <- read_excel("~/Desktop/race.xlsx")
 ggplot(data_per_student, aes(x = school)) +
     geom_bar(fill="powder blue", color="white")+
     coord_flip()+
+    theme_minimal() +
   labs(title = "Enrollment per School" , x = "School", y = "Enrollment")
 ```
 
@@ -32,5 +38,43 @@ ggplot(data_per_student, aes(x = school)) +
 ggplot(race, aes(factor(place), number, fill = sorz)) + 
   geom_bar(stat="identity", position = "dodge") + 
   coord_flip() +
+  theme_minimal() +
   labs(title = "Racial Composition of Schools vs. School Zones" , x = "School", y = "Percentage of Students of Color", fill=" ")
+```
+
+#school zone diff
+```{r difference-plot}
+ggplot(race_diff, aes(factor(place), number)) + 
+  geom_bar(stat="identity", position = "dodge") + 
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Difference in % of Students of Color between Schools and Zones" , x = "School", y = "Difference in Students of Color (%)")
+```
+
+#poc/school
+```{r poc-plot}
+ggplot(poc_per_school, aes(factor(place), number)) + 
+  geom_bar(stat="identity", position = "dodge") + 
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Percentage of Students of Color" , x = "School", y = "Students of Color (%)")
+```
+
+#funding per pupil
+```{r funding-plot}
+ggplot(funding, aes(factor(place), number)) + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
+  coord_flip() +
+  theme_minimal() +
+  geom_text(aes(label = number), vjust = 0)+
+  labs(title = "Funding per Pupil" , x = "School", y = "Funding per Pupil ($)")
+```
+
+#racial demographics
+```{r all-demographic-plot}
+ggplot(all_race, aes(factor(school), number, fill = race)) + 
+  geom_bar(stat="identity", position = "dodge") + 
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Racial Composition of Schools" , x = "School", y = "Percentage of Students", fill="Race")
 ```
