@@ -36,7 +36,7 @@ libraries <- read.csv("Libraries.csv")
 parks <- read.csv("Parks.csv")
 rec <- read.csv("Recreation Centers.csv")
 religious <- read.csv("Religious Centers.csv")
-schools <- read.csv("School Statistics.csv")
+schools <- read.csv("schools.csv")
 
 
 # Define UI for application that draws a histogram
@@ -52,17 +52,17 @@ ui <- dashboardPage(
                 title = "Drop Down Select",
                 selectInput("var",
                             label = "Choose a variable to display",
-                            choices = c("Parks", "Recreation Centers", "Gardens", "Bus Stops", 
-                                        "Childcare Centers", "Community & Cultural Centers", 
-                                        "Grocery Stores", "Libraries", "Religious Centers"),
+                            choices = c("Bus Stops", "Childcare Centers", "Community & Cultural Centers", 
+                                        "Gardens", "Grocery Stores", "Libraries", "Parks",
+                                        "Recreation Centers", "Religious Centers"),
                             multiple = FALSE),
                 selectInput("zone",
                             label = "Choose a school zone to display",
-                            choices = c("C.C. Spaulding Elementary", "Eastway Elementary",
+                            choices = c("All","C.C. Spaulding Elementary", "Eastway Elementary",
                                         "E.K. Powe Elementary", "Fayetteville Street Elementary", 
                                         "Forest View Elementary", "Hillside High",
                                         "Jordan High School","Lakewood Elementary", 
-                                        "Parkwood Elementary", "Southwest Elementary", "All"),
+                                        "Parkwood Elementary", "Southwest Elementary"),
                             multiple = FALSE)),
         ),
         fluidRow(
@@ -116,7 +116,6 @@ server <- function(input, output) {
             addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE)
     })
 }
-
 
 
 # Run the application 
