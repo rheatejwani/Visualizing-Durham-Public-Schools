@@ -14,7 +14,17 @@ library(leaflet)
 
 #GeoJson Data
 durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
-fayetville <- geojsonio::geojson_read("Fayetville St.geojson", what = "sp")
+cc <- geojsonio::geojson_read("CC Spaulding.geojson", what = "sp")
+eastway <- geojsonio::geojson_read("Eastway.geojson", what = "sp")
+ek <- geojsonio::geojson_read("EK Powe.geojson", what = "sp")
+fayetteville <- geojsonio::geojson_read("Fayetteville St.geojson", what = "sp")
+forest <- geojsonio::geojson_read("Forest View.geojson", what = "sp")
+hillside <- geojsonio::geojson_read("Hillside.geojson", what = "sp")
+jordan <- geojsonio::geojson_read("CEJordan.geojson", what = "sp")
+lakewood <- geojsonio::geojson_read("Lakewood.geojson", what = "sp")
+parkwood <- geojsonio::geojson_read("Parkwood.geojson", what = "sp")
+southwest <- geojsonio::geojson_read("Southwest.geojson", what = "sp")
+
 
 #Spatial Data
 bus <- read.csv("Bus Stops.csv")
@@ -82,17 +92,17 @@ server <- function(input, output) {
     
     displayZone <- reactive({
         switch(input$zone,
-               "C.C. Spaulding Elementary", 
-               "Eastway Elementary",
-               "E.K. Powe Elementary", 
-               "Fayetteville Street Elementary", 
-               "Forest View Elementary",
-               "Hillside High",
-               "Jordan High School",
-               "Lakewood Elementary", 
-               "Parkwood Elementary", 
-               "Southwest Elementary", 
-               "All"
+               "C.C. Spaulding Elementary" = cc, 
+               "Eastway Elementary" = eastway,
+               "E.K. Powe Elementary" = ek, 
+               "Fayetteville Street Elementary" = fayetteville, 
+               "Forest View Elementary" = forest,
+               "Hillside High" = hillside,
+               "Jordan High School" = jordan,
+               "Lakewood Elementary" = lakewood, 
+               "Parkwood Elementary" = parkwood, 
+               "Southwest Elementary" = southwest, 
+               "All" = durham)
     })
     
     output$map <- renderLeaflet({
