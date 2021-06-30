@@ -19,10 +19,11 @@ childcare <- read.csv("Childcare Centers.csv")
 cultural <- read.csv("Community & Cultural Centers.csv")
 gardens <- read.csv("Community Gardens.csv")
 grocery <- read.csv("Grocery Stores.csv")
-library <- read.csv("Libraries.csv")
+libraries <- read.csv("Libraries.csv")
 parks <- read.csv("Parks.csv")
 rec <- read.csv("Recreation Centers.csv")
 religious <- read.csv("Religious Centers.csv")
+schools <- read.csv("School Statistics.csv")
 
 
 # Define UI for application that draws a histogram
@@ -60,6 +61,19 @@ ui <- dashboardPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
     
+    displayVar <- reactive({
+        switch(input$var,
+               "Parks" = parks, 
+               "Recreation Centers" = rec, 
+               "Gardens" = gardens, 
+               "Bus Stops" = bus, 
+               "Childcare Centers" = childcare, 
+               "Community & Cultural Centers" = cultural, 
+               "Grocery Stores" = grocery, 
+               "Libraries" = libraries, 
+               "Religious Centers" = religious)
+    })
+    
     output$map <- renderLeaflet({
         leaflet(durham) %>%
             addProviderTiles("CartoDB.Positron") %>%
@@ -68,7 +82,7 @@ server <- function(input, output) {
                         stroke = TRUE,
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
-            addMarkers(data = parks, lng = ~LONGITUDE, lat= ~LATITUDE)
+            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE)
     })
 }
 
