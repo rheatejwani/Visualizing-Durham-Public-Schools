@@ -44,8 +44,8 @@ ui <- dashboardPage(
                 selectInput("zone",
                             label = "Choose a school zone to display",
                             choices = c("C.C. Spaulding ES", "Jordan HS", "E.K. Powe ES", "Eastway ES",
-                                        "Fayetteville Street ES", "Forest View ES", "Lakewood ES", "Parkwood ES",
-                                        "Southwest ES", "Hillside HS"))
+                                        "Fayetteville Street ES", "Forest View ES", "Lakewood ES", 
+                                        "Parkwood ES", "Southwest ES", "Hillside HS"))
             )
         ),
         fluidRow(
@@ -68,7 +68,7 @@ server <- function(input, output) {
                         stroke = TRUE,
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
-            addCircleMarkers(data = parks, lng = ~LONGITUDE, lat= ~LATITUDE)
+            addMarkers(data = parks, lng = ~LONGITUDE, lat= ~LATITUDE)
     })
 }
 
