@@ -29,17 +29,21 @@ ui <- dashboardPage(
                 title = "Drop Down Select",
                 selectInput("var",
                             label = "Choose a variable to display",
-                            choices = c("Parks", "Recreation Centers", "Gardens")),
+                            choices = c("Parks", "Recreation Centers", "Gardens", "Bus Stops", 
+                                        "Childcare Centers", "Community & Cultural Centers", 
+                                        "Grocery Stores", "Libraries", "Religious Centers")),
                 selectInput("zone",
                             label = "Choose a school zone to display",
-                            choices = c("C C Spaulding", "Jordan High", "EK Powe")),
+                            choices = c("C.C. Spaulding ES", "Jordan HS", "E.K. Powe ES", "Eastway ES",
+                                        "Fayetteville Street ES", "Forest View ES", "Lakewood ES", "Parkwood ES",
+                                        "Southwest ES", "Hillside HS"))
             )
         ),
         fluidRow(
             box(width = 8,
                 title = "Pop Up Description"),
             box(width = 4,
-                title = "Additional Resources"),
+                title = "Additional Resources")
         )
     )
 )
@@ -58,6 +62,8 @@ server <- function(input, output) {
             addCircleMarkers(data = parks, lng = ~LONGITUDE, lat= ~LATITUDE)
     })
 }
+
+
 
 # Run the application 
 shinyApp(ui = ui, server = server)
