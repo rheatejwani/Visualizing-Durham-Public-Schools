@@ -14,7 +14,16 @@ library(leaflet)
 
 #Data
 durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
+bus <- read.csv("Bus Stops.csv")
+childcare <- read.csv("Childcare Centers.csv")
+cultural <- read.csv("Community & Cultural Centers.csv")
+gardens <- read.csv("Community Gardens.csv")
+grocery <- read.csv("Grocery Stores.csv")
+library <- read.csv("Libraries.csv")
 parks <- read.csv("Parks.csv")
+rec <- read.csv("Recreation Centers.csv")
+religious <- read.csv("Religious Centers.csv")
+
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
