@@ -12,8 +12,11 @@ library(shiny)
 library(shinydashboard)
 library(leaflet)
 
-#Data
+#GeoJson Data
 durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
+fayetville <- geojsonio::geojson_read("Fayetville St.geojson", what = "sp")
+
+#Spatial Data
 bus <- read.csv("Bus Stops.csv")
 childcare <- read.csv("Childcare Centers.csv")
 cultural <- read.csv("Community & Cultural Centers.csv")
@@ -45,9 +48,12 @@ ui <- dashboardPage(
                             multiple = FALSE),
                 selectInput("zone",
                             label = "Choose a school zone to display",
-                            choices = schools$SCHOOL_NAME,
-                            multiple = FALSE)
-            )
+                            choices = c("C.C. Spaulding Elementary", "Eastway Elementary",
+                                        "E.K. Powe Elementary", "Fayetteville Street Elementary", 
+                                        "Forest View Elementary", "Hillside High",
+                                        "Jordan High School","Lakewood Elementary", 
+                                        "Parkwood Elementary", "Southwest Elementary", "All"),
+                            multiple = FALSE)),
         ),
         fluidRow(
             box(width = 8,
@@ -74,10 +80,25 @@ server <- function(input, output) {
                "Religious Centers" = religious)
     })
     
+    displayZone <- reactive({
+        switch(input$zone,
+               "C.C. Spaulding Elementary", 
+               "Eastway Elementary",
+               "E.K. Powe Elementary", 
+               "Fayetteville Street Elementary", 
+               "Forest View Elementary",
+               "Hillside High",
+               "Jordan High School",
+               "Lakewood Elementary", 
+               "Parkwood Elementary", 
+               "Southwest Elementary", 
+               "All"
+    })
+    
     output$map <- renderLeaflet({
-        leaflet(durham) %>%
+        leaflet(displayZone()) %>%
             addProviderTiles("CartoDB.Positron") %>%
-            addPolygons(data = durham,
+            addPolygons(data = displayZone(),
                         fillColor = "lightblue",
                         stroke = TRUE,
                         fillOpacity = 0.75,
