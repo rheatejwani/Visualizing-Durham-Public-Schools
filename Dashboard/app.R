@@ -11,6 +11,7 @@
 library(shiny)
 library(shinydashboard)
 library(leaflet)
+library(tidyverse)
 
 #GeoJson Data
 durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
@@ -27,16 +28,17 @@ southwest <- geojsonio::geojson_read("Southwest.geojson", what = "sp")
 
 
 #Spatial Data
-bus <- read.csv("Bus Stops.csv")
-childcare <- read.csv("Childcare Centers.csv")
-cultural <- read.csv("Community & Cultural Centers.csv")
-gardens <- read.csv("Community Gardens.csv")
-grocery <- read.csv("Grocery Stores.csv")
-libraries <- read.csv("Libraries.csv")
-parks <- read.csv("Parks.csv")
-rec <- read.csv("Recreation Centers.csv")
-religious <- read.csv("Religious Centers.csv")
-schools <- read.csv("School Statistics.csv")
+bus <- Bus_Stops
+childcare <- Childcare_Centers
+cultural <- Community_Cultural_Centers
+gardens <- Community_Gardens
+grocery <- Grocery_Stores
+libraries <- Libraries
+parks <- Parks
+rec <- Recreation_Centers
+religious <- Religious_Centers
+schools <- schools
+school_stats <- School_Statistics
 
 
 # Define UI for application that draws a histogram
@@ -113,7 +115,7 @@ server <- function(input, output) {
                         stroke = TRUE,
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
-            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE)
+            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, label = displayVar()$Name)
     })
 }
 
