@@ -28,17 +28,16 @@ southwest <- geojsonio::geojson_read("Southwest.geojson", what = "sp")
 
 
 #Spatial Data
-bus <- Bus_Stops
-childcare <- Childcare_Centers
-cultural <- Community_Cultural_Centers
-gardens <- Community_Gardens
-grocery <- Grocery_Stores
-libraries <- Libraries
-parks <- Parks
-rec <- Recreation_Centers
-religious <- Religious_Centers
-schools <- schools
-school_stats <- School_Statistics
+bus <- read.csv("renamed_Bus Stops.csv")
+childcare <- read.csv("renamed_Childcare Centers.csv")
+cultural <- read.csv("renamed_Community & Cultural Centers.csv")
+gardens <- read.csv("renamed_Community Gardens.csv")
+grocery <- read.csv("renamed_Grocery Stores.csv")
+libraries <- read.csv("renamed_Libraries.csv")
+parks <- read.csv("renamed_Parks.csv")
+rec <- read.csv("renamed_Recreation Centers.csv")
+religious <- read.csv("renamed_Religious Centers.csv")
+schools <- read.csv("renamed_School Statistics.csv")
 
 
 # Define UI for application that draws a histogram
@@ -115,7 +114,7 @@ server <- function(input, output) {
                         stroke = TRUE,
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
-            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, label = displayVar()$Name)
+            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, label = displayVar()$name)
     })
 }
 
