@@ -106,11 +106,26 @@ server <- function(input, output) {
                "All" = durham)
     })
     
+    displayColor <- reactive({
+        switch(input$zone,
+               "C.C. Spaulding Elementary" = "red", 
+               "Eastway Elementary" = "orange",
+               "E.K. Powe Elementary" = "yellow", 
+               "Fayetteville Street Elementary" = "green", 
+               "Forest View Elementary" = "blue",
+               "Hillside High" = "violet",
+               "Jordan High School" = "pink",
+               "Lakewood Elementary" = "darkred", 
+               "Parkwood Elementary" = "lightblue", 
+               "Southwest Elementary" = "brown", 
+               "All" = "gray")
+    })
+    
     output$map <- renderLeaflet({
         leaflet(displayZone()) %>%
             addProviderTiles("CartoDB.Positron") %>%
             addPolygons(data = displayZone(),
-                        fillColor = "lightblue",
+                        fillColor = displayColor(),
                         stroke = TRUE,
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
