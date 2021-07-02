@@ -11,6 +11,7 @@
 library(shiny)
 library(shinydashboard)
 library(leaflet)
+library(tidyverse)
 
 #GeoJson Data
 durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
@@ -27,16 +28,16 @@ southwest <- geojsonio::geojson_read("Southwest.geojson", what = "sp")
 
 
 #Spatial Data
-bus <- read.csv("Bus Stops.csv")
-childcare <- read.csv("Childcare Centers.csv")
-cultural <- read.csv("Community & Cultural Centers.csv")
-gardens <- read.csv("Community Gardens.csv")
-grocery <- read.csv("Grocery Stores.csv")
-libraries <- read.csv("Libraries.csv")
-parks <- read.csv("Parks.csv")
-rec <- read.csv("Recreation Centers.csv")
-religious <- read.csv("Religious Centers.csv")
-schools <- read.csv("schools.csv")
+bus <- read.csv("renamed_Bus Stops.csv")
+childcare <- read.csv("renamed_Childcare Centers.csv")
+cultural <- read.csv("renamed_Community & Cultural Centers.csv")
+gardens <- read.csv("renamed_Community Gardens.csv")
+grocery <- read.csv("renamed_Grocery Stores.csv")
+libraries <- read.csv("renamed_Libraries.csv")
+parks <- read.csv("renamed_Parks.csv")
+rec <- read.csv("renamed_Recreation Centers.csv")
+religious <- read.csv("renamed_Religious Centers.csv")
+schools <- read.csv("renamed_School Statistics.csv")
 
 
 # Define UI for application that draws a histogram
@@ -52,13 +53,14 @@ ui <- dashboardPage(
                 title = "Drop Down Select",
                 selectInput("var",
                             label = "Choose a variable to display",
-                            choices = c("Bus Stops", "Childcare Centers", "Community & Cultural Centers", 
-                                        "Gardens", "Grocery Stores", "Libraries", "Parks",
+                            choices = c("Bus Stops", 
+                                        "Childcare Centers", "Community & Cultural Centers", "Gardens",
+                                        "Grocery Stores", "Libraries", "Parks", 
                                         "Recreation Centers", "Religious Centers"),
                             multiple = FALSE),
                 selectInput("zone",
                             label = "Choose a school zone to display",
-                            choices = c("All","C.C. Spaulding Elementary", "Eastway Elementary",
+                            choices = c("All", "C.C. Spaulding Elementary", "Eastway Elementary",
                                         "E.K. Powe Elementary", "Fayetteville Street Elementary", 
                                         "Forest View Elementary", "Hillside High",
                                         "Jordan High School","Lakewood Elementary", 
@@ -113,9 +115,10 @@ server <- function(input, output) {
                         stroke = TRUE,
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
-            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE)
+            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, label = displayVar()$name)
     })
 }
+
 
 
 # Run the application 
