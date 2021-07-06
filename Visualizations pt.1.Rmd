@@ -13,28 +13,29 @@ knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
 library(tidyverse)
 Race_SCHOOL_ONLY <- read_excel("~/Desktop/Race SCHOOL ONLY.xlsx")
-Data_School_Info <- read_excel("~/Desktop/Data + School Info.xlsx")
 data_per_student <- read_excel("~/Desktop/data per student.xlsx")
 race <- read_excel("~/Desktop/race.xlsx")
 race_diff <- read_excel("~/Desktop/race diff.xlsx")
 poc_per_school <- read_excel("~/Desktop/poc per school.xlsx")
 funding <- read_excel("~/Desktop/funding.xlsx")
 all_race <- read_excel("~/Desktop/all race.xlsx")
+Data_School_Info <- read_excel("~/Documents/ Other/Data+/DPS Spreadsheets/Data + School Info.xlsx")
 ```
 
 
 #enrollment plot
 
-```{r enrollment-plot}
-ggplot(data_per_student, aes(x = school)) +
-    geom_bar(fill="powder blue", color="white")+
-    coord_flip()+
-    theme_minimal() +
+```{r enrollment-plot, echo=FALSE}
+  ggplot(Data_School_Info, aes(factor(SCHOOL_NAME), ENROLLMENT)) + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
+  coord_flip() +
+  theme_minimal() +
+   geom_text(aes(label = ENROLLMENT), vjust = 0)+
   labs(title = "Enrollment per School" , x = "School", y = "Enrollment")
 ```
 
 #school zone vs. school racial breakdown plot
-```{r demographic-plot}
+```{r demographic-plot, echo=FALSE}
 ggplot(race, aes(factor(place), number, fill = sorz)) + 
   geom_bar(stat="identity", position = "dodge") + 
   coord_flip() +
@@ -43,25 +44,27 @@ ggplot(race, aes(factor(place), number, fill = sorz)) +
 ```
 
 #school zone diff
-```{r difference-plot}
+```{r difference-plot, echo=FALSE}
 ggplot(race_diff, aes(factor(place), number)) + 
-  geom_bar(stat="identity", position = "dodge") + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
   coord_flip() +
   theme_minimal() +
+   geom_text(aes(label = number), vjust = 0)+
   labs(title = "Difference in % of Students of Color between Schools and Zones" , x = "School", y = "Difference in Students of Color (%)")
 ```
 
 #poc/school
-```{r poc-plot}
+```{r poc-plot, echo=FALSE}
 ggplot(poc_per_school, aes(factor(place), number)) + 
-  geom_bar(stat="identity", position = "dodge") + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
   coord_flip() +
   theme_minimal() +
+   geom_text(aes(label = number), vjust = 0)+
   labs(title = "Percentage of Students of Color" , x = "School", y = "Students of Color (%)")
 ```
 
 #funding per pupil
-```{r funding-plot}
+```{r funding-plot, echo=FALSE}
 ggplot(funding, aes(factor(place), number)) + 
   geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
   coord_flip() +
@@ -71,7 +74,7 @@ ggplot(funding, aes(factor(place), number)) +
 ```
 
 #racial demographics
-```{r all-demographic-plot}
+```{r all-demographic-plot, echo=FALSE}
 ggplot(all_race, aes(factor(school), number, fill = race)) + 
   geom_bar(stat="identity", position = "dodge") + 
   coord_flip() +
@@ -80,12 +83,63 @@ ggplot(all_race, aes(factor(school), number, fill = race)) +
 ```
 
 #race per school
-```{r race-per-school}
+```{r race-per-school, echo=FALSE}
 ggplot(all_race, aes(factor(race), number, fill=race)) + 
   geom_bar(stat="identity", position = "dodge") + 
   coord_flip() +
   theme_minimal() +
   facet_wrap(~school)+
   labs(title = "Racial Composition", subtitle="Faceted by School" , x = "Race", y = "Percentage of Students (%)")
+```
 
+#household income
+```{r household-income, echo=FALSE}
+ggplot(Data_School_Info, aes(factor(SCHOOL_NAME), MED_HOUSEHOLD_INC)) + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
+  coord_flip() +
+  theme_minimal() +
+  geom_text(aes(label = MED_HOUSEHOLD_INC), vjust = 0)+
+  labs(title = "Median Household Income", y = "Median Household Income ($)", x = "School")
+```
+
+#homesale price
+```{r homesale-price, echo=FALSE}
+ggplot(Data_School_Info, aes(factor(SCHOOL_NAME), MED_HOMESALE_PRICE)) + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
+  coord_flip() +
+  theme_minimal() +
+   geom_text(aes(label = MED_HOMESALE_PRICE), vjust = 0)+
+  labs(title = "Median Homesale Price", y = "Median Homesale Price ($)", x = "School")
+```
+
+#bachelor degree rate
+```{r bachelor, echo=FALSE}
+ggplot(Data_School_Info, aes(factor(SCHOOL_NAME), BACHELOR_DEG_RATE)) + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
+  coord_flip() +
+  theme_minimal() +
+   geom_text(aes(label = BACHELOR_DEG_RATE), vjust = 0)+
+  labs(title = "Bachelor Degree Rate per School Zone", y = "Bachelor Degree Rate", x = "School")
+```
+
+
+#sidewalk coverage
+```{r sidewalk, echo=FALSE}
+ggplot(Data_School_Info, aes(factor(SCHOOL_NAME), SIDEWALK_COVG)) + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
+  coord_flip() +
+  theme_minimal() +
+   geom_text(aes(label = SIDEWALK_COVG), vjust = 0)+
+  labs(title = "Sidewalk Coverage per School Zone", y = "Sidewalk Coverage (%)", x = "School")
+```
+
+
+#diversity per district
+```{r diversity, echo=FALSE}
+ggplot(Data_School_Info, aes(factor(SCHOOL_NAME), DIVERSITY_DISTRICT)) + 
+  geom_bar(stat="identity", position = "dodge", fill="powder blue") + 
+  coord_flip() +
+  theme_minimal() +
+   geom_text(aes(label = DIVERSITY_DISTRICT), vjust = 0)+
+  labs(title = "Diversity per School Zone", y = "Diversity (%)", x = "School")
 ```

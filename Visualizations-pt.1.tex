@@ -1,0 +1,111 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Visualization 1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Visualization 1}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\#import data
+
+\#enrollment plot
+
+\includegraphics{Visualizations-pt.1_files/figure-latex/enrollment-plot-1.pdf}
+
+\#school zone vs.~school racial breakdown plot
+\includegraphics{Visualizations-pt.1_files/figure-latex/demographic-plot-1.pdf}
+
+\#school zone diff
+\includegraphics{Visualizations-pt.1_files/figure-latex/difference-plot-1.pdf}
+
+\#poc/school
+\includegraphics{Visualizations-pt.1_files/figure-latex/poc-plot-1.pdf}
+
+\#funding per pupil
+\includegraphics{Visualizations-pt.1_files/figure-latex/funding-plot-1.pdf}
+
+\#racial demographics
+\includegraphics{Visualizations-pt.1_files/figure-latex/all-demographic-plot-1.pdf}
+
+\#race per school
+\includegraphics{Visualizations-pt.1_files/figure-latex/race-per-school-1.pdf}
+
+\#household income
+\includegraphics{Visualizations-pt.1_files/figure-latex/household-income-1.pdf}
+
+\#homesale price
+\includegraphics{Visualizations-pt.1_files/figure-latex/homesale-price-1.pdf}
+
+\#bachelor degree rate
+\includegraphics{Visualizations-pt.1_files/figure-latex/bachelor-1.pdf}
+
+\#sidewalk coverage
+\includegraphics{Visualizations-pt.1_files/figure-latex/sidewalk-1.pdf}
+
+\#diversity per district
+\includegraphics{Visualizations-pt.1_files/figure-latex/diversity-1.pdf}
+
+\end{document}
