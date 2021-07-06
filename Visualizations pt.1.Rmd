@@ -78,3 +78,14 @@ ggplot(all_race, aes(factor(school), number, fill = race)) +
   theme_minimal() +
   labs(title = "Racial Composition of Schools" , x = "School", y = "Percentage of Students", fill="Race")
 ```
+
+#race per school
+```{r race-per-school}
+ggplot(all_race, aes(factor(race), number, fill=race)) + 
+  geom_bar(stat="identity", position = "dodge") + 
+  coord_flip() +
+  theme_minimal() +
+  facet_wrap(~school)+
+  labs(title = "Racial Composition", subtitle="Faceted by School" , x = "Race", y = "Percentage of Students (%)")
+
+```
