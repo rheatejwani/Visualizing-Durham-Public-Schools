@@ -39,6 +39,19 @@ rec <- read.csv("renamed_Recreation Centers.csv")
 religious <- read.csv("renamed_Religious Centers.csv")
 schools <- read.csv("renamed_School Statistics.csv")
 
+#Icons
+Icons <- iconList(
+    parks = makeIcon("icons8-oak-tree-24.png", 25, 25),
+    rec = makeIcon("icons8-children-30.png", 25, 25),
+    gardens = makeIcon("icons8-garden-gloves-50.png", 25, 25),
+    bus = makeIcon("icons8-24.png", 25, 25),
+    childcare = makeIcon("icons8-rocking-horse-24.png", 25, 25),
+    cultural = makeIcon("icons8-people-30.png", 25, 25),
+    grocery = makeIcon("icons8-grocery-bag-30.png", 25, 25),
+    libraries = makeIcon("icons8-book-30.png", 25, 25),
+    religious = makeIcon("icons8-chapel-30.png", 25, 25)
+)
+
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
@@ -91,6 +104,19 @@ server <- function(input, output) {
                "Religious Centers" = religious)
     })
     
+    displayIcon <- reactive({
+        switch(input$var,
+               "Parks" = Icons$parks, 
+               "Recreation Centers" = Icons$rec, 
+               "Gardens" = Icons$gardens, 
+               "Bus Stops" = Icons$bus, 
+               "Childcare Centers" = Icons$childcare, 
+               "Community & Cultural Centers" = Icons$cultural, 
+               "Grocery Stores" = Icons$grocery, 
+               "Libraries" = Icons$libraries, 
+               "Religious Centers" = Icons$religious)
+    })
+    
     displayZone <- reactive({
         switch(input$zone,
                "C.C. Spaulding Elementary" = cc, 
@@ -129,7 +155,9 @@ server <- function(input, output) {
                         stroke = TRUE,
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
-            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, label = displayVar()$name)
+            addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, 
+                       #displayIcon is not reacting - to show default icons remove 'icon = displayIcon()'
+                       label = displayVar()$name, icon = displayIcon())
     })
 }
 
