@@ -12,7 +12,6 @@ library(shiny)
 library(shinydashboard)
 library(leaflet)
 library(tidyverse)
-library(png)
 
 #GeoJson Data
 durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
