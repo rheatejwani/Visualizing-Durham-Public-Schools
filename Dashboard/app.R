@@ -12,6 +12,7 @@ library(shiny)
 library(shinydashboard)
 library(leaflet)
 library(tidyverse)
+library(png)
 
 #GeoJson Data
 durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
@@ -40,16 +41,18 @@ religious <- read.csv("renamed_Religious Centers.csv")
 schools <- read.csv("renamed_School Statistics.csv")
 
 #Icons
-Icons <- iconList(
-    parks = makeIcon("icons8-oak-tree-24.png", 25, 25),
-    rec = makeIcon("icons8-children-30.png", 25, 25),
-    gardens = makeIcon("icons8-garden-gloves-50.png", 25, 25),
-    bus = makeIcon("icons8-24.png", 25, 25),
-    childcare = makeIcon("icons8-rocking-horse-24.png", 25, 25),
-    cultural = makeIcon("icons8-people-30.png", 25, 25),
-    grocery = makeIcon("icons8-grocery-bag-30.png", 25, 25),
-    libraries = makeIcon("icons8-book-30.png", 25, 25),
-    religious = makeIcon("icons8-chapel-30.png", 25, 25)
+
+
+iconSet <- iconList(
+    parks = makeIcon("http://globetrotterlife.org/blog/wp-content/uploads/leaflet-maps-marker-icons/ferry-18.png", iconWidth=25, iconHeight=25),
+    rec = makeIcon("https://img.icons8.com/ios-glyphs/30/000000/children.png", iconWidth=25, iconHeight=25),
+    gardens = makeIcon("https://img.icons8.com/doodle/48/000000/flower--v1.png", iconWidth=25, iconHeight=25),
+    bus = makeIcon("https://img.icons8.com/material-rounded/24/000000/bus.png", iconWidth=25, iconHeight=25),
+    childcare = makeIcon("https://img.icons8.com/material-rounded/24/000000/rocking-horse.png", iconWidth=25, iconHeight=25),
+    cultural = makeIcon("https://img.icons8.com/ios-filled/30/000000/crowd.png", iconWidth=25, iconHeight=25),
+    grocery = makeIcon("https://img.icons8.com/ios-glyphs/30/000000/grocery-store.png", iconWidth=25, iconHeight=25),
+    libraries = makeIcon("https://img.icons8.com/fluent-systems-filled/50/000000/book.png", iconWidth=25, iconHeight=25),
+    religious = makeIcon("https://img.icons8.com/ios-filled/50/000000/chapel.png", iconWidth=25, iconHeight=25)
 )
 
 
@@ -107,16 +110,16 @@ server <- function(input, output) {
     
     displayIcon <- reactive({
         switch(input$var,
-               "Parks" = Icons$parks, 
-               "Recreation Centers" = Icons$rec, 
-               "Gardens" = Icons$gardens, 
-               "Bus Stops" = Icons$bus, 
-               "Childcare Centers" = Icons$childcare, 
-               "Community & Cultural Centers" = Icons$cultural, 
-               "Grocery Stores" = Icons$grocery, 
-               "Libraries" = Icons$libraries, 
-               "Religious Centers" = Icons$religious)
-    })
+               "Parks" = iconSet$parks, 
+               "Recreation Centers" = iconSet$rec, 
+               "Gardens" = iconSet$gardens, 
+               "Bus Stops" = iconSet$bus, 
+               "Childcare Centers" = iconSet$childcare, 
+               "Community & Cultural Centers" = iconSet$cultural, 
+               "Grocery Stores" = iconSet$grocery, 
+               "Libraries" = iconSet$libraries, 
+               "Religious Centers" = iconSet$religious)
+  })
     
     displayZone <- reactive({
         switch(input$zone,
