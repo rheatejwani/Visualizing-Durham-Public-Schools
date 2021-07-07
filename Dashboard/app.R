@@ -98,7 +98,7 @@ server <- function(input, output) {
         switch(input$var,
                "Parks" = parks, 
                "Recreation Centers" = rec, 
-               "Gardens" = gardens, 
+               "Community Gardens" = gardens, 
                "Bus Stops" = bus, 
                "Childcare Centers" = childcare, 
                "Community & Cultural Centers" = cultural, 
