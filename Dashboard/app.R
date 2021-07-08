@@ -39,11 +39,10 @@ rec <- read.csv("renamed_Recreation Centers.csv")
 religious <- read.csv("renamed_Religious Centers.csv")
 schools <- read.csv("renamed_School Statistics.csv")
 
-schools <- schools %>% 
-  mutate(name = case_when(name == "C C Spaulding Elementary" ~ "C. C. Spaulding Elementary", 
-                          name == "E K Powe Elementary" ~ "E. K. Powe Elementary", 
-                          name == "Jordan High" ~ "Jordan High School"))
-
+schools$name <- c("C.C. Spaulding Elementary", "Eastway Elementary",
+                  "E.K. Powe Elementary", "Fayetteville Street Elementary", 
+                  "Forest View Elementary", "Lakewood Elementary", "Parkwood Elementary",
+                  "Southwest Elementary", "Hillside High","Jordan High", "All")
 
 #Icons
 
@@ -80,10 +79,10 @@ ui <- dashboardPage(
                             multiple = FALSE),
                 selectInput("zone",
                             label = "Choose a school zone to display",
-                            choices = c("All", "C. C. Spaulding Elementary", "Eastway Elementary",
-                                        "E. K. Powe Elementary", "Fayetteville Street Elementary", 
+                            choices = c("All", "C.C. Spaulding Elementary", "Eastway Elementary",
+                                        "E.K. Powe Elementary", "Fayetteville Street Elementary", 
                                         "Forest View Elementary", "Hillside High",
-                                        "Jordan High School","Lakewood Elementary", 
+                                        "Jordan High","Lakewood Elementary", 
                                         "Parkwood Elementary", "Southwest Elementary"),
                             multiple = FALSE)),
         ),
@@ -131,13 +130,13 @@ server <- function(input, output) {
     
     displayZone <- reactive({
         switch(input$zone,
-               "C. C. Spaulding Elementary" = cc, 
+               "C.C. Spaulding Elementary" = cc, 
                "Eastway Elementary" = eastway,
-               "E. K. Powe Elementary" = ek, 
+               "E.K. Powe Elementary" = ek, 
                "Fayetteville Street Elementary" = fayetteville, 
                "Forest View Elementary" = forest,
                "Hillside High" = hillside,
-               "Jordan High School" = jordan,
+               "Jordan High" = jordan,
                "Lakewood Elementary" = lakewood, 
                "Parkwood Elementary" = parkwood, 
                "Southwest Elementary" = southwest, 
@@ -146,13 +145,13 @@ server <- function(input, output) {
     
     displayColor <- reactive({
         switch(input$zone,
-               "C. C. Spaulding Elementary" = "red", 
+               "C.C. Spaulding Elementary" = "red", 
                "Eastway Elementary" = "orange",
-               "E. K. Powe Elementary" = "yellow", 
+               "E.K. Powe Elementary" = "yellow", 
                "Fayetteville Street Elementary" = "green", 
                "Forest View Elementary" = "blue",
                "Hillside High" = "violet",
-               "Jordan High School" = "pink",
+               "Jordan High" = "pink",
                "Lakewood Elementary" = "darkred", 
                "Parkwood Elementary" = "lightblue", 
                "Southwest Elementary" = "brown", 
@@ -169,7 +168,8 @@ server <- function(input, output) {
                         smoothFactor = 1) %>%
             addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, 
                        label = displayVar()$name, icon = displayIcon()) %>%
-            addMarkers(data = displaySchool(), lng = ~LONGITUDE, lat = ~LATITUDE)
+            addMarkers(data = displaySchool(), lng = ~LONGITUDE, lat = ~LATITUDE, 
+                   label = displaySchool()["name"])
     })
 }
 
