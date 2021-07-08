@@ -41,7 +41,6 @@ schools <- read.csv("renamed_School Statistics.csv")
 
 #Icons
 
-
 iconSet <- iconList(
     parks = makeIcon("https://img.icons8.com/material-rounded/24/000000/deciduous-tree.png", iconWidth=20, iconHeight=20),
     rec = makeIcon("https://img.icons8.com/ios-glyphs/30/000000/children.png", iconWidth=20, iconHeight=20),
