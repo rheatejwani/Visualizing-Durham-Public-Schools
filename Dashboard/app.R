@@ -39,6 +39,12 @@ rec <- read.csv("renamed_Recreation Centers.csv")
 religious <- read.csv("renamed_Religious Centers.csv")
 schools <- read.csv("renamed_School Statistics.csv")
 
+schools <- schools %>% 
+  mutate(name = case_when(name == "C C Spaulding Elementary" ~ "C. C. Spaulding Elementary", 
+                          name == "E K Powe Elementary" ~ "E. K. Powe Elementary", 
+                          name == "Jordan High" ~ "Jordan High School"))
+
+
 #Icons
 
 iconSet <- iconList(
@@ -74,8 +80,8 @@ ui <- dashboardPage(
                             multiple = FALSE),
                 selectInput("zone",
                             label = "Choose a school zone to display",
-                            choices = c("All", "C.C. Spaulding Elementary", "Eastway Elementary",
-                                        "E.K. Powe Elementary", "Fayetteville Street Elementary", 
+                            choices = c("All", "C. C. Spaulding Elementary", "Eastway Elementary",
+                                        "E. K. Powe Elementary", "Fayetteville Street Elementary", 
                                         "Forest View Elementary", "Hillside High",
                                         "Jordan High School","Lakewood Elementary", 
                                         "Parkwood Elementary", "Southwest Elementary"),
@@ -125,9 +131,9 @@ server <- function(input, output) {
     
     displayZone <- reactive({
         switch(input$zone,
-               "C.C. Spaulding Elementary" = cc, 
+               "C. C. Spaulding Elementary" = cc, 
                "Eastway Elementary" = eastway,
-               "E.K. Powe Elementary" = ek, 
+               "E. K. Powe Elementary" = ek, 
                "Fayetteville Street Elementary" = fayetteville, 
                "Forest View Elementary" = forest,
                "Hillside High" = hillside,
@@ -140,9 +146,9 @@ server <- function(input, output) {
     
     displayColor <- reactive({
         switch(input$zone,
-               "C.C. Spaulding Elementary" = "red", 
+               "C. C. Spaulding Elementary" = "red", 
                "Eastway Elementary" = "orange",
-               "E.K. Powe Elementary" = "yellow", 
+               "E. K. Powe Elementary" = "yellow", 
                "Fayetteville Street Elementary" = "green", 
                "Forest View Elementary" = "blue",
                "Hillside High" = "violet",
