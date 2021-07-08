@@ -43,15 +43,15 @@ schools <- read.csv("renamed_School Statistics.csv")
 
 
 iconSet <- iconList(
-    parks = makeIcon("http://globetrotterlife.org/blog/wp-content/uploads/leaflet-maps-marker-icons/ferry-18.png", iconWidth=25, iconHeight=25),
-    rec = makeIcon("https://img.icons8.com/ios-glyphs/30/000000/children.png", iconWidth=25, iconHeight=25),
-    gardens = makeIcon("https://img.icons8.com/doodle/48/000000/flower--v1.png", iconWidth=25, iconHeight=25),
-    bus = makeIcon("https://img.icons8.com/material-rounded/24/000000/bus.png", iconWidth=25, iconHeight=25),
-    childcare = makeIcon("https://img.icons8.com/material-rounded/24/000000/rocking-horse.png", iconWidth=25, iconHeight=25),
-    cultural = makeIcon("https://img.icons8.com/ios-filled/30/000000/crowd.png", iconWidth=25, iconHeight=25),
-    grocery = makeIcon("https://img.icons8.com/ios-glyphs/30/000000/grocery-store.png", iconWidth=25, iconHeight=25),
-    libraries = makeIcon("https://img.icons8.com/fluent-systems-filled/50/000000/book.png", iconWidth=25, iconHeight=25),
-    religious = makeIcon("https://img.icons8.com/ios-filled/50/000000/chapel.png", iconWidth=25, iconHeight=25)
+    parks = makeIcon("https://img.icons8.com/material-rounded/24/000000/deciduous-tree.png", iconWidth=20, iconHeight=20),
+    rec = makeIcon("https://img.icons8.com/ios-glyphs/30/000000/children.png", iconWidth=20, iconHeight=20),
+    gardens = makeIcon("https://img.icons8.com/doodle/48/000000/flower--v1.png", iconWidth=20, iconHeight=20),
+    bus = makeIcon("https://img.icons8.com/material-rounded/24/000000/bus.png", iconWidth=20, iconHeight=20),
+    childcare = makeIcon("https://img.icons8.com/material-rounded/24/000000/rocking-horse.png", iconWidth=20, iconHeight=20),
+    cultural = makeIcon("https://img.icons8.com/ios-filled/30/000000/crowd.png", iconWidth=20, iconHeight=20),
+    grocery = makeIcon("https://img.icons8.com/ios-glyphs/30/000000/grocery-store.png", iconWidth=20, iconHeight=20),
+    libraries = makeIcon("https://img.icons8.com/fluent-systems-filled/50/000000/book.png", iconWidth=20, iconHeight=20),
+    religious = makeIcon("https://img.icons8.com/ios-filled/50/000000/chapel.png", iconWidth=20, iconHeight=20)
 )
 
 
@@ -120,6 +120,10 @@ server <- function(input, output) {
                "Religious Centers" = iconSet$religious)
   })
     
+    displaySchool <- reactive({
+        schools %>% filter(name == input$zone)
+    })
+    
     displayZone <- reactive({
         switch(input$zone,
                "C.C. Spaulding Elementary" = cc, 
@@ -159,8 +163,8 @@ server <- function(input, output) {
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
             addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, 
-                       #displayIcon is not reacting - to show default icons remove 'icon = displayIcon()'
-                       label = displayVar()$name, icon = displayIcon())
+                       label = displayVar()$name, icon = displayIcon()) %>%
+            addMarkers(data = displaySchool(), lng = ~LONGITUDE, lat = ~LATITUDE)
     })
 }
 
