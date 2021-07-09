@@ -167,7 +167,8 @@ server <- function(input, output) {
                         fillOpacity = 0.75,
                         smoothFactor = 1) %>%
             addMarkers(data = displayVar(), lng = ~LONGITUDE, lat= ~LATITUDE, 
-                       label = displayVar()$name, icon = displayIcon()) %>%
+                       label = displayVar()$name, icon = displayIcon(), 
+                       clusterOptions = markerClusterOptions()) %>%
             addMarkers(data = displaySchool(), lng = ~LONGITUDE, lat = ~LATITUDE, 
                    label = displaySchool()["name"])
     })
