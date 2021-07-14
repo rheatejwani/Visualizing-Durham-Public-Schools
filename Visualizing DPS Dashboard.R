@@ -72,16 +72,6 @@ iconSet <- iconList(
   religious = makeIcon("https://img.icons8.com/ios-filled/50/000000/chapel.png", iconWidth=20, iconHeight=20)
 )
 
-custom_colors_theme <- create_theme(
-  bs4dash_color(
-    olive = "#d8bc66",
-    lime = "#fcec0c",
-    teal =  "#012169",
-    maroon = "#58482c",
-    gray_x_light = "#d1c5c0"
-  )
-)
-
 sidebar <- {dashboardSidebar(
   sidebarMenu(
     menuItem("Our Ten Community Schools - Home", tabName = "home"),
