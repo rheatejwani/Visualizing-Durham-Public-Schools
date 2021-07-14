@@ -115,11 +115,11 @@ body <- {dashboardBody(
              br(),
              fluidRow(class = "text-center", width=12,
                       column(width=4,
-                             actionButton('switchtab', "View C.C. Spaulding Elementary >>")),
+                             actionButton("button", "View C.C. Spaulding Elementary >>")),
                       column(width=4,
-                             actionButton("$blank", "View Eastway Elementary >>")),
+                             actionButton("button", "View Eastway Elementary >>")),
                       column(width=4,
-                             actionButton("$blank", "View E.K. Powe Elementary >>"))
+                             actionButton("button", "View E.K. Powe Elementary >>"))
              ),
              br(),
              br(),
@@ -147,11 +147,11 @@ body <- {dashboardBody(
              br(),
              fluidRow(class = "text-center", width=12,
                       column(width=4,
-                             actionButton("$blank", "View Fayetteville Street Elementary >>")),
+                             actionButton("button", "View Fayetteville Street Elementary >>")),
                       column(width=4,
-                             actionButton("$blank", "View Forest View Elementary >>")),
+                             actionButton("button", "View Forest View Elementary >>")),
                       column(width=4,
-                             actionButton("$blank", "View Lakewood Elementary >>"))
+                             actionButton("button", "View Lakewood Elementary >>"))
              ),
              br(),
              br(),
@@ -179,11 +179,11 @@ body <- {dashboardBody(
              br(),
              fluidRow(class = "text-center", width=12,
                       column(width=4,
-                             actionButton("$bleep", "View Parkwood Elementary >>")),
+                             actionButton("button", "View Parkwood Elementary >>")),
                       column(width=4,
-                             actionButton("$bleep", "View Southwest Elementary >>")),
+                             actionButton("button", "View Southwest Elementary >>")),
                       column(width=4,
-                             actionButton("$bleep", "View Hillside High >>"))
+                             actionButton("button", "View Hillside High >>"))
              ),
              br(),
              br(),
@@ -202,7 +202,7 @@ body <- {dashboardBody(
              br(),
              fluidRow(class = "text-center", width=12,
                       column(width=12,
-                             actionButton("$bleep", "View Jordan High >>"))
+                             actionButton("button", "View Jordan High >>"))
              ),
              br(),
              br()
