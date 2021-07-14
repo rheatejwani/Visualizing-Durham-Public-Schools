@@ -9,15 +9,12 @@
 
 # Packages
 library(shiny)
-library(shinythemes)
 library(shinydashboard)
 library(leaflet)
 library(tidyverse)
 library(plotly)
 library(dplyr)
 library(tidyr)
-library(bs4Dash)
-library(fresh)
 library(readxl)
 
 #Load School Stats Data
