@@ -46,7 +46,7 @@ cultural <- read.csv("renamed_Community & Cultural Centers.csv")
 gardens <- read.csv("renamed_Community Gardens.csv")
 grocery <- read.csv("renamed_Grocery Stores.csv") #note what we consider a grocery store, not food desert food apartheid
 libraries <- read.csv("renamed_Libraries.csv")
-parks <- read.csv("~/Desktop/Visualizing DPS/renamed_Parks.csv")
+parks <- read.csv("renamed_Parks.csv")
 rec <- read.csv("renamed_Recreation Centers.csv")
 religious <- read.csv("renamed_Religious Centers.csv")
 
