@@ -21,37 +21,37 @@ library(fresh)
 library(readxl)
 
 #Load School Stats Data
-Race_SCHOOL_ONLY <- read_excel("Race SCHOOL ONLY.xlsx")
-race <- read_excel("race.xlsx")
-race_diff <- read_excel("race diff.xlsx")
-poc_per_school <- read_excel("poc per school.xlsx")
-funding <- read_excel("funding.xlsx")
-all_race <- read_excel("all race.xlsx")
-schoolstats <- read.csv("School Statistics.csv")
+Race_SCHOOL_ONLY <- read_excel("~/Desktop/Visualizing DPS/Race SCHOOL ONLY.xlsx")
+race <- read_excel("~/Desktop/Visualizing DPS/race.xlsx")
+race_diff <- read_excel("~/Desktop/Visualizing DPS/race diff.xlsx")
+poc_per_school <- read_excel("~/Desktop/Visualizing DPS/poc per school.xlsx")
+funding <- read_excel("~/Desktop/Visualizing DPS/funding.xlsx")
+all_race <- read_excel("~/Desktop/Visualizing DPS/all race.xlsx")
+schoolstats <- read.csv("~/Desktop/Visualizing DPS/SchoolStats.csv")
 
 #Load Map Data
-durham <- geojsonio::geojson_read("Ten Schools.geojson", what = "sp")
-cc <- geojsonio::geojson_read("CC Spaulding.geojson", what = "sp")
-eastway <- geojsonio::geojson_read("Eastway.geojson", what = "sp")
-ek <- geojsonio::geojson_read("EK Powe.geojson", what = "sp")
-fayetteville <- geojsonio::geojson_read("Fayetteville St.geojson", what = "sp")
-forest <- geojsonio::geojson_read("Forest View.geojson", what = "sp")
-hillside <- geojsonio::geojson_read("Hillside.geojson", what = "sp")
-jordan <- geojsonio::geojson_read("CEJordan.geojson", what = "sp")
-lakewood <- geojsonio::geojson_read("Lakewood.geojson", what = "sp")
-parkwood <- geojsonio::geojson_read("Parkwood.geojson", what = "sp")
-southwest <- geojsonio::geojson_read("Southwest.geojson", what = "sp")
+durham <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Ten Schools.geojson", what = "sp")
+cc <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/CC Spaulding.geojson", what = "sp")
+eastway <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Eastway.geojson", what = "sp")
+ek <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/EK Powe.geojson", what = "sp")
+fayetteville <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Fayetteville St.geojson", what = "sp")
+forest <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Forest View.geojson", what = "sp")
+hillside <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Hillside.geojson", what = "sp")
+jordan <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/CEJordan.geojson", what = "sp")
+lakewood <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Lakewood.geojson", what = "sp")
+parkwood <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Parkwood.geojson", what = "sp")
+southwest <- geojsonio::geojson_read("~/Desktop/Visualizing DPS/Southwest.geojson", what = "sp")
 
 #Spatial Data
-bus <- read.csv("renamed_Bus Stops.csv")
-childcare <- read.csv("renamed_Childcare Centers.csv")
-cultural <- read.csv("renamed_Community & Cultural Centers.csv")
-gardens <- read.csv("renamed_Community Gardens.csv")
-grocery <- read.csv("renamed_Grocery Stores.csv") #note what we consider a grocery store, not food desert food aparthied
-libraries <- read.csv("renamed_Libraries.csv")
-parks <- read.csv("renamed_Parks.csv")
-rec <- read.csv("renamed_Recreation Centers.csv")
-religious <- read.csv("renamed_Religious Centers.csv")
+bus <- read.csv("~/Desktop/Visualizing DPS/renamed_Bus Stops.csv")
+childcare <- read.csv("~/Desktop/Visualizing DPS/renamed_Childcare Centers.csv")
+cultural <- read.csv("~/Desktop/Visualizing DPS/renamed_Community & Cultural Centers.csv")
+gardens <- read.csv("~/Desktop/Visualizing DPS/renamed_Community Gardens.csv")
+grocery <- read.csv("~/Desktop/Visualizing DPS/renamed_Grocery Stores.csv") #note what we consider a grocery store, not food desert food apartheid
+libraries <- read.csv("~/Desktop/Visualizing DPS/renamed_Libraries.csv")
+parks <- read.csv("~/Desktop/Visualizing DPS/renamed_Parks.csv")
+rec <- read.csv("~/Desktop/Visualizing DPS/renamed_Recreation Centers.csv")
+religious <- read.csv("~/Desktop/Visualizing DPS/renamed_Religious Centers.csv")
 
 schoolstats$name <- c("C.C. Spaulding Elementary", "Eastway Elementary",
                   "E.K. Powe Elementary", "Fayetteville Street Elementary", 
@@ -72,31 +72,35 @@ iconSet <- iconList(
   religious = makeIcon("https://img.icons8.com/ios-filled/50/000000/chapel.png", iconWidth=20, iconHeight=20)
 )
 
-#Sidebar
+custom_colors_theme <- create_theme(
+  bs4dash_color(
+    olive = "#d8bc66",
+    lime = "#fcec0c",
+    teal =  "#012169",
+    maroon = "#58482c",
+    gray_x_light = "#d1c5c0"
+  )
+)
 
 sidebar <- {dashboardSidebar(
   sidebarMenu(
-    menuItem("Our Ten Community Schools", tabName = "schooltab",
-             menuSubItem(tabName = "home", text = "Home", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "CCS", text = "C.C. Spaulding", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "EastWay", text = "Eastway", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "EKPowe", text = "E.K. Powe", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "FayettevilleSt", text = "Fayetteville St", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "ForestView", text = "Forest View", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "Lakewood", text = "Lakewood", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "Parkwood", text = "Parkwood", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "Southeast", text = "Southeast", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "Hillside", text = "Hillside", icon = icon("cloud-upload")),
-             menuSubItem(tabName = "Jordan", text = "C E Jordan", icon = icon("cloud-upload"))
-    ),
-    menuItem("Spatial Data", tabName = "mapstab"),
-    menuItem("School Statistics", tabName = "statstab")
+    menuItem("Our Ten Community Schools - Home", tabName = "home"),
+    menuItem(tabName = "CCS", text = "C.C. Spaulding"),
+    menuItem(tabName = "EastWay", text = "Eastway"),
+    menuItem(tabName = "EKPowe", text = "E.K. Powe"),
+    menuItem(tabName = "FayettevilleSt", text = "Fayetteville St"),
+    menuItem(tabName = "ForestView", text = "Forest View"),
+    menuItem(tabName = "Lakewood", text = "Lakewood"),
+    menuItem(tabName = "Parkwood", text = "Parkwood"),
+    menuItem(tabName = "Southeast", text = "Southeast"),
+    menuItem(tabName = "Hillside", text = "Hillside"),
+    menuItem(tabName = "Jordan", text = "C E Jordan"),
+    menuItem("School Statistics", tabName = "statstab"),
+    menuItem("Maps", tabName = "mapstab")
   )
 )
 }
   
-#Body
-
 body <- {dashboardBody(
   tabItems(
     #Landing Page
@@ -128,7 +132,7 @@ body <- {dashboardBody(
                       column(width=4,
                              actionButton("$blank", "View Eastway Elementary >>")),
                       column(width=4,
-                             actionButton("$bleep", "View E.K. Powe Elementary >>"))
+                             actionButton("$blank", "View E.K. Powe Elementary >>"))
              ),
              br(),
              br(),
@@ -156,11 +160,11 @@ body <- {dashboardBody(
              br(),
              fluidRow(class = "text-center", width=12,
                       column(width=4,
-                             actionButton("$bleep", "View Fayetteville Street Elementary >>")),
+                             actionButton("$blank", "View Fayetteville Street Elementary >>")),
                       column(width=4,
-                             actionButton("$bleep", "View Forest View Elementary >>")),
+                             actionButton("$blank", "View Forest View Elementary >>")),
                       column(width=4,
-                             actionButton("$bleep", "View Lakewood Elementary >>"))
+                             actionButton("$blank", "View Lakewood Elementary >>"))
              ),
              br(),
              br(),
@@ -249,22 +253,22 @@ body <- {dashboardBody(
               h2("Insert CE Jordan Info")
       ),
       
-    #School Stats Tab
+    #School Stats
     {tabItem(tabName = "statstab",
              fluidRow(
                #Box Plot Outputs
-               box(title = strong("Charts"), plotlyOutput("barplots",width="auto",height = "auto")
+               box(status = "teal",title = strong("Charts"), plotlyOutput("barplots",width="auto",height = "auto")
                ),
                #Drop Down Widget for Box Plots
-               box(title = strong("Measurements, Context, and Resources"), box(width = 12,
+               box(status = "teal", title = strong("Measurements, Context, and Resources"), box(width = 12,
                                                                                         title = strong("Select a Measurement"),
                                                                                         selectInput("select", em("Click the drop down menu to select which measurement you would like to view."), 
                                                                                                     choices = list("Average Class Size","Bachelor Degree Rate","Diversity per District", "Enrollment","ESL Students","Experienced Teacher Ratio",
                                                                                                                    "Free/Red Lunch","Funding Per Pupil","Homesale Price","Household Income", "In-School Suspensions (ISS)",
                                                                                                                    "Median Age","POC per School","Race per School", "Racial Demographics", "Racial Differential","School and Zone Racial Breakdown",
                                                                                                                    "Sidewalk Coverage","Students Per Device","Student-Teacher Ratio, Elementary School","Student-Teacher Ratio, High School", 
-                                                                                                                   "Students With Disabilities"  
-                                                                                                                    ))),
+                                                                                                                   "Students With Disabilities")
+                                                                                                                    )),
                    box(width = 12,
                        title = strong("Context & Resources"),
                        htmlOutput("resources")
@@ -273,12 +277,14 @@ body <- {dashboardBody(
              )
     )},
     
-    #Spatial Data Tab
+    #Map Data
     tabItem(tabName = "mapstab",
             fluidRow(
-              box(width  = 8,
+              box(width  = 12,
                   title = "Map",
-                  leafletOutput("map")),
+                  leafletOutput("map"))
+            ),
+            fluidRow(
               box(width = 4,
                   title = "Drop Down Select",
                   selectInput("var",
@@ -296,10 +302,10 @@ body <- {dashboardBody(
                                           "Jordan High","Lakewood Elementary", 
                                           "Parkwood Elementary", "Southwest Elementary"),
                               multiple = FALSE)),
-            ),
-            fluidRow(
               box(width = 8,
                   title = "Pop Up Description"),
+            ),
+            fluidRow(
               box(width = 4,
                   title = "Additional Resources")
             )
@@ -749,5 +755,3 @@ shinyApp(
     
   }
 )
-
-
